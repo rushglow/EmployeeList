@@ -25,6 +25,7 @@ class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): Recycl
     override fun onBindViewHolder(holder: EmployeeItemViewHolder, position: Int) {
         holder.binding.tvEmployeeName.text = employeeList[position].name
         holder.binding.tvEmployeePosition.text = employeeList[position].position
+        holder.binding.tvEmployeeAge.text = employeeList[position].age
 
     }
 

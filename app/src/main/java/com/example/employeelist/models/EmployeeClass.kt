@@ -6,5 +6,6 @@ import android.os.Parcelable
 data class EmployeeClass(
     val id: Int,
     val name: String?,
-    val position: String?
+    val position: String?,
+    val age: String?
 )
