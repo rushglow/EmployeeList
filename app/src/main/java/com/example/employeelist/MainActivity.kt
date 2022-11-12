@@ -5,15 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.preference.PreferenceManager
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.ActivityMainBinding
 import com.example.employeelist.models.EmployeeClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
-import java.lang.Exception
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets.UTF_8
+import kotlin.Exception
 import kotlin.text.Charsets.UTF_8
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initial()
+
     }
 
     private fun initial() {
@@ -37,9 +39,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun generateEmployee(): List<EmployeeClass> {
-        val jsonString = getFileData()
+        val javaString = getFileData()
         val typeToken = object : TypeToken<List<EmployeeClass>>() {}.type
-        val authors = Gson().fromJson<List<EmployeeClass>>(jsonString, typeToken)
+        try {
+            val authors = Gson().fromJson<List<EmployeeClass>>(javaString, typeToken)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        val authors = Gson().fromJson<List<EmployeeClass>>(javaString, typeToken)
         return authors
     }
 
@@ -66,9 +73,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun writeDataToCacheFile(res: String) {
-        val inputFile = File(this.cacheDir, "employee.txt")
+        val inputFile = File("employee.txt")
         inputFile.writeText(res, Charset.defaultCharset())
     }
+
 
 }
 

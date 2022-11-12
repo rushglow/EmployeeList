@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/shape_oval"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/dialog_avatar"
+        android:layout_width="125dp"
+        android:layout_height="175dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        tools:src="@tools:sample/avatars"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:id="@+id/dialog_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Имя и фамилия:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="23dp"/>
+
+    <EditText
+        android:id="@+id/dialog_name_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_avatar"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_name_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginEnd="24dp"
+        tools:text="@tools:sample/full_names"/>
+
+    <TextView
+        android:id="@+id/dialog_position_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_avatar"
+        app:layout_constraintTop_toBottomOf="@id/dialog_name_et"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Должность:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:id="@+id/dialog_position_et"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_position_tv"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_name_et"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        tools:text="@tools:sample/lorem"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/dialog_age_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_avatar"
+        app:layout_constraintTop_toBottomOf="@id/dialog_position_tv"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="Возраст:"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="15dp"/>
+
+    <EditText
+        android:id="@+id/dialog_age_et"
+        android:layout_width="30dp"
+        android:layout_height="25dp"
+        app:layout_constraintStart_toEndOf="@id/dialog_age_tv"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_position_tv"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        tools:text="@tools:sample/lorem"
+        android:textSize="15dp"
+        android:inputType="number"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_btn_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/dialog_btn_delete"
+        app:layout_constraintTop_toBottomOf="@id/dialog_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Назад"
+        android:textStyle="bold"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_btn_exit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Удалить"
+        android:textStyle="bold"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
