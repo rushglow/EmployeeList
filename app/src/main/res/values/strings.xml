@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">EmployeeList</string>
     <string name="add_employee_btn">Добавить сотрудинка</string>
+    <string name="employee_position">Должность:</string>
+    <string name="employee_string">Возраст:</string>
 </resources>
