@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.EmployeeItemBinding
 import com.example.employeelist.models.EmployeeClass
 import com.google.gson.Gson
+import java.net.URI
 
 class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
 
@@ -26,7 +27,8 @@ class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): Recycl
         holder.binding.tvEmployeeName.text = employeeList[position].name
         holder.binding.tvEmployeePosition.text = employeeList[position].position
         holder.binding.tvEmployeeAge.text = employeeList[position].age
-
+        holder.binding.tvEmployeePos.text = "Должность:"
+        holder.binding.tvEmployeeAg.text = "Возраст:"
     }
 
     override fun getItemCount(): Int {

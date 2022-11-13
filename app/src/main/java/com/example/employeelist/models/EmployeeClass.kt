@@ -7,5 +7,5 @@ data class EmployeeClass(
     val id: Int,
     val name: String?,
     val position: String?,
-    val age: String?
+    val age: String?,
 )
