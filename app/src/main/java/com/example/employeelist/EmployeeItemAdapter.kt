@@ -11,7 +11,7 @@ import com.example.employeelist.models.EmployeeClass
 import com.google.gson.Gson
 import java.net.URI
 
-class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
+class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
 
 
     class EmployeeItemViewHolder(item : View):RecyclerView.ViewHolder(item ){
@@ -29,6 +29,9 @@ class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): Recycl
         holder.binding.tvEmployeeAge.text = employeeList[position].age
         holder.binding.tvEmployeePos.text = "Должность:"
         holder.binding.tvEmployeeAg.text = "Возраст:"
+        holder.itemView.setOnClickListener{
+            listener.onClick(employeeList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -38,6 +41,15 @@ class EmployeeItemAdapter(private val employeeList: List<EmployeeClass>): Recycl
     @SuppressLint("NotifyDataSetChanged")
     fun setChange (list: List<EmployeeClass>) {
         notifyDataSetChanged()
+    }
+
+    fun addEmployee(employee: EmployeeClass) {
+        employeeList.add(employee)
+        notifyDataSetChanged()
+    }
+
+    interface  Listener{
+        fun onClick(employee: EmployeeClass)
     }
 
 }

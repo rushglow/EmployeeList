@@ -3,7 +3,9 @@ package com.example.employeelist
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.DialogCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.ActivityMainBinding
 import com.example.employeelist.models.AddDialogFragment
@@ -14,7 +16,7 @@ import java.io.*
 import java.nio.charset.Charset
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
 
     lateinit var binding: ActivityMainBinding
     lateinit var adapter: EmployeeItemAdapter
@@ -34,15 +36,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initial() {
         recyclerView = binding.employeeRecycle
-        adapter = EmployeeItemAdapter(generateEmployee())
+        adapter = EmployeeItemAdapter(generateEmployee(), this)
         recyclerView.adapter = adapter
         adapter.setChange(generateEmployee())
     }
 
-    fun generateEmployee(): List<EmployeeClass> {
+    fun generateEmployee(): ArrayList<EmployeeClass> {
         val javaString = getFileData()
-        val typeToken = object : TypeToken<List<EmployeeClass>>() {}.type
-        val authors = Gson().fromJson<List<EmployeeClass>>(javaString, typeToken)
+        val typeToken = object : TypeToken<ArrayList<EmployeeClass>>() {}.type
+        val authors = Gson().fromJson<ArrayList<EmployeeClass>>(javaString, typeToken)
         return authors
     }
 
@@ -71,6 +73,12 @@ class MainActivity : AppCompatActivity() {
     private fun writeDataToCacheFile(res: String) {
         val inputFile = File("employee.txt")
         inputFile.writeText(res, Charsets.UTF_8)
+    }
+
+    override fun onClick(employee: EmployeeClass) {
+        var dialog = AddDialogFragment()
+
+
     }
 
 

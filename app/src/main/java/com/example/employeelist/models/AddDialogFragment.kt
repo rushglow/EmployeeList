@@ -12,6 +12,7 @@ import com.example.employeelist.databinding.AddEmployeeDialogBinding
 
 class AddDialogFragment: DialogFragment() {
 
+    lateinit var binding: AddEmployeeDialogBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -20,16 +21,21 @@ class AddDialogFragment: DialogFragment() {
     ): View? {
         var rootView:View = inflater.inflate(R.layout.add_employee_dialog, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val binding = AddEmployeeDialogBinding.inflate(layoutInflater)
+        binding = AddEmployeeDialogBinding.inflate(layoutInflater)
 
         binding.dialogBtnExit.setOnClickListener{
             dismiss()
         }
 
-        binding.dialogBtnDelete.setOnClickListener{
+        binding.dialogBtnAdd.setOnClickListener{
 
         }
 
         return rootView
     }
+
+    fun openDialog(position: Int){
+        binding.dialogNameTv.text =
+    }
+
 }
