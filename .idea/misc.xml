@@ -5,7 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/shape_oval.xml" value="0.156" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.27799659582136127" />
-        <entry key="app/src/main/res/layout/add_employee_dialog.xml" value="0.15290801136206228" />
+        <entry key="app/src/main/res/layout/add_employee_dialog.xml" value="0.5245037755222186" />
         <entry key="app/src/main/res/layout/delete_employe.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/delete_employe_dialog.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/delete_employee_confirm_dialog.xml" value="0.15070921985815602" />

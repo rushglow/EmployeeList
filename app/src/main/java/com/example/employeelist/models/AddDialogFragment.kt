@@ -24,12 +24,12 @@ class AddDialogFragment: DialogFragment() {
     private var _binding: AddEmployeeDialogBinding? = null // TODO: во фрагментах гугл советуею юзать вот такой подход
     private val binding get() = _binding!!
 
-//    lateinit var binding: AddEmployeeDialogBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val data = arguments?.getString("key") ?: throw IllegalArgumentException("Data argument required") // TODO: перехват данных по ключу.
+        val data = arguments?.getString("key") ?: throw IllegalArgumentException("Data argument required") // TODO: перехват данных по ключу.
     // TODO: IllegalArgumentException тут нужен больше для тестирования, например если разные типы данных по одному ключу передаете
+
     }
 
     override fun onCreateView(
@@ -39,11 +39,8 @@ class AddDialogFragment: DialogFragment() {
     ): View {
         _binding = AddEmployeeDialogBinding.inflate(layoutInflater)
 
-//        var rootView:View = inflater.inflate(R.layout.add_employee_dialog, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-
-//        return rootView // TODO: зачем нужен rootView, если у вас есть binding.root ? Как раз из-за этого и не работала кнопка "Назад", потому что вы до конца вьюБиндиг не проинициировали
         return binding.root
     }
 
@@ -51,7 +48,7 @@ class AddDialogFragment: DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.dialogBtnExit.setOnClickListener{
-            dismiss() //TODO: теперь кнопка работает
+            dismiss()
         }
 
         binding.dialogBtnAdd.setOnClickListener{

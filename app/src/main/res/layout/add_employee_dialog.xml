@@ -61,12 +61,12 @@
     <EditText
         android:id="@+id/dialog_position_et"
         android:layout_width="0dp"
-        android:layout_height="25dp"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/dialog_position_tv"
         app:layout_constraintTop_toBottomOf="@+id/dialog_name_et"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         tools:text="@tools:sample/lorem"
         android:textSize="15dp"/>
@@ -86,12 +86,12 @@
 
     <EditText
         android:id="@+id/dialog_age_et"
-        android:layout_width="30dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/dialog_age_tv"
         app:layout_constraintTop_toBottomOf="@+id/dialog_position_tv"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="24dp"
         tools:text="@tools:sample/lorem"
         android:textSize="15dp"

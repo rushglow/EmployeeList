@@ -1,21 +1,16 @@
 package com.example.employeelist
 
 import android.os.Bundle
-import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Toast
+
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.DialogCompat
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.ActivityMainBinding
 import com.example.employeelist.models.AddDialogFragment
 import com.example.employeelist.models.EmployeeClass
+import com.example.employeelist.utils.showDialogFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.*
-import java.nio.charset.Charset
-
 
 class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
 
@@ -30,12 +25,8 @@ class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
         initial()
 
         binding.btnAddEmployee.setOnClickListener{
-
-//            var dialog = AddDialogFragment()
-
-//            AddDialogFragment.newInstance().show(supportFragmentManager, AddDialogFragment.newInstance()::class.java.simpleName) // TODO: можно запустить так
+            AddDialogFragment.newInstance().show(supportFragmentManager, AddDialogFragment.newInstance()::class.java.simpleName) // TODO: можно запустить так
             showDialogFragment(AddDialogFragment.newInstance()) // TODO: а можно вот так, реализацию функции можно найти ниже (обычно мы такие вещи выносим в отдельный файл, потому что очень часто он много где используется)
-//            dialog.show(supportFragmentManager, "addEmployeeDialog")
         }
     }
 
@@ -86,9 +77,6 @@ class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
 
     }
 
-    fun AppCompatActivity.showDialogFragment(dialogFragment: DialogFragment) {
-        dialogFragment.show(supportFragmentManager, dialogFragment::class.java.simpleName)
-    }
 
 
 }
