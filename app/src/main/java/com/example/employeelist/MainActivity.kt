@@ -1,7 +1,8 @@
 package com.example.employeelist
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.ActivityMainBinding
@@ -10,7 +11,7 @@ import com.example.employeelist.models.EmployeeClass
 import com.example.employeelist.utils.showDialogFragment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import java.io.*
+import java.io.File
 
 class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
 
@@ -18,15 +19,18 @@ class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
     lateinit var adapter: EmployeeItemAdapter
     lateinit var recyclerView: RecyclerView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initial()
+        intent.extras?.getString("EMPLOYEE")
+
 
         binding.btnAddEmployee.setOnClickListener{
-            AddDialogFragment.newInstance().show(supportFragmentManager, AddDialogFragment.newInstance()::class.java.simpleName) // TODO: можно запустить так
-            showDialogFragment(AddDialogFragment.newInstance()) // TODO: а можно вот так, реализацию функции можно найти ниже (обычно мы такие вещи выносим в отдельный файл, потому что очень часто он много где используется)
+            //AddDialogFragment.newInstance().show(supportFragmentManager, AddDialogFragment.newInstance()::class.java.simpleName) // TODO: можно запустить так
+            //showDialogFragment(AddDialogFragment.newInstance()) // TODO: а можно вот так, реализацию функции можно найти ниже (обычно мы такие вещи выносим в отдельный файл, потому что очень часто он много где используется)
         }
     }
 
@@ -71,9 +75,15 @@ class MainActivity : AppCompatActivity(), EmployeeItemAdapter.Listener {
         inputFile.writeText(res, Charsets.UTF_8)
     }
 
+
+
     override fun onClick(employee: EmployeeClass) {
         var dialog = AddDialogFragment()
 
+
+    }
+
+    fun dataSwap(){
 
     }
 

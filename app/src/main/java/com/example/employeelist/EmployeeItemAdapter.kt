@@ -1,6 +1,8 @@
 package com.example.employeelist
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,7 @@ import com.example.employeelist.models.AddDialogFragment
 import com.example.employeelist.models.EmployeeClass
 
 
-class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
+open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
 
     class EmployeeItemViewHolder(item : View):RecyclerView.ViewHolder(item ){
         val binding = EmployeeItemBinding.bind(item)
@@ -32,7 +34,11 @@ class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, va
         holder.binding.tvEmployeeAg.text = "Возраст:"
         holder.itemView.setOnClickListener{
             listener.onClick(employeeList[position])
-            AddDialogFragment.newInstance().show(fragmentManager, AddDialogFragment.newInstance()::class.java.simpleName)
+            val employee = EmployeeClass(employeeList[position].id,employeeList[position].name,employeeList[position].position,employeeList[position].age)
+            val intent = Intent(holder.itemView.context, AddDialogFragment::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("EMPLOYEE", employee)
+            AddDialogFragment.newInstance(employee).show(fragmentManager, AddDialogFragment.newInstance(employee)::class.java.simpleName)
         }
 
     }
@@ -54,7 +60,6 @@ class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, va
     interface  Listener{
         fun onClick(employee: EmployeeClass)
     }
-
 
 
 }
