@@ -13,7 +13,8 @@ import com.example.employeelist.models.AddDialogFragment
 import com.example.employeelist.models.EmployeeClass
 
 
-open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
+//open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, private val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
+open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, private val onClick: (EmployeeClass) -> Unit): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
 
     class EmployeeItemViewHolder(item : View):RecyclerView.ViewHolder(item ){
         val binding = EmployeeItemBinding.bind(item)
@@ -33,12 +34,9 @@ open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass
         holder.binding.tvEmployeePos.text = "Должность:"
         holder.binding.tvEmployeeAg.text = "Возраст:"
         holder.itemView.setOnClickListener{
-            listener.onClick(employeeList[position])
-            val employee = EmployeeClass(employeeList[position].id,employeeList[position].name,employeeList[position].position,employeeList[position].age)
-            val intent = Intent(holder.itemView.context, AddDialogFragment::class.java)
-            val bundle = Bundle()
-            bundle.putParcelable("EMPLOYEE", employee)
-            AddDialogFragment.newInstance(employee).show(fragmentManager, AddDialogFragment.newInstance(employee)::class.java.simpleName)
+            onClick.invoke(employeeList[position]) // TODO: дергаю этот метод, чтобы он вызвался в MainActivity
+//            val employee = EmployeeClass(employeeList[position].id,employeeList[position].name,employeeList[position].position,employeeList[position].age)
+//            AddDialogFragment.newInstance(employee).show(fragmentManager, AddDialogFragment::class.java.simpleName)
         }
 
     }
@@ -56,6 +54,8 @@ open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass
         employeeList.add(employee)
         notifyDataSetChanged()
     }
+
+
 
     interface  Listener{
         fun onClick(employee: EmployeeClass)

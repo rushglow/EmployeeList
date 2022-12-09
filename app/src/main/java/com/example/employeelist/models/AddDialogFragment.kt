@@ -3,13 +3,16 @@ package com.example.employeelist.models
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.example.employeelist.databinding.AddEmployeeDialogBinding
 
-class AddDialogFragment: DialogFragment() {
+class AddDialogFragment: AppCompatDialogFragment() {
 
     companion object {
         fun newInstance(employee: EmployeeClass) = AddDialogFragment().apply { //TODO: проблема была вот тут
@@ -50,7 +53,9 @@ class AddDialogFragment: DialogFragment() {
         }
 
         binding.dialogBtnAdd.setOnClickListener {
-
+            parentFragmentManager.setFragmentResult("KEY1", bundleOf("KEY2" to data)) // TODO: возвращаю сотрудника обраьно в активити
+            dismiss()
         }
     }
+
 }
