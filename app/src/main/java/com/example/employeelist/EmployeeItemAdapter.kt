@@ -46,12 +46,53 @@ open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setChange (list: List<EmployeeClass>) {
+    fun setChange (employee: ArrayList<EmployeeClass>) {
+        notifyDataSetChanged()
+    }
+
+    fun replaceEmployee(index:Int, employee: EmployeeClass){
+        employeeList.set(index, employee)
         notifyDataSetChanged()
     }
 
     fun addEmployee(employee: EmployeeClass) {
         employeeList.add(employee)
+        notifyDataSetChanged()
+    }
+
+    fun sortById(employee: ArrayList<EmployeeClass>, check: Int){
+        if(check == 0){
+            employeeList.sortBy { it.id }
+        }else{
+            employeeList.sortedByDescending{ it.id }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortByName(employee: ArrayList<EmployeeClass>, check: Int){
+        if(check == 0){
+            employeeList.sortBy { it.name }
+        }else{
+            employeeList.sortedByDescending{ it.name }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortByPosition(employee: ArrayList<EmployeeClass>, check: Int){
+        if(check == 0){
+            employeeList.sortBy { it.position }
+        }else{
+            employeeList.sortedByDescending{ it.position }
+        }
+        notifyDataSetChanged()
+    }
+
+    fun sortByAge(employee: ArrayList<EmployeeClass>, check: Int){
+        if(check == 0){
+            employeeList.sortBy { it.age }
+        }else{
+            employeeList.sortedByDescending{ it.age }
+        }
         notifyDataSetChanged()
     }
 

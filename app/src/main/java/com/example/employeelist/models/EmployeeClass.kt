@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class EmployeeClass(
-    val id: Int,
+    var id: Int,
     val name: String?,
     val position: String?,
     val age: String?,

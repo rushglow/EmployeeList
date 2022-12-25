@@ -31,7 +31,16 @@
         android:text="Имя и фамилия:"
         android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="23dp"/>
+        android:textSize="23sp"/>
+
+    <TextView
+        android:id="@+id/employee_id_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/dialog_name_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dialog_name_et"/>
 
     <EditText
         android:id="@+id/dialog_name_et"
