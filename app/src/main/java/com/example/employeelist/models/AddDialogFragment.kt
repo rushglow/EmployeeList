@@ -40,7 +40,7 @@ class AddDialogFragment: AppCompatDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         data = arguments?.getParcelable("EMPLOYEE")
-        employeeId = arguments?.getInt("EMPLOYEE_ID", -1)
+        employeeId = arguments?.getInt("EMPLOYEE_ID")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -57,14 +57,14 @@ class AddDialogFragment: AppCompatDialogFragment() {
         binding.dialogNameEt.setText(data?.name)
         binding.dialogPositionEt.setText(data?.position)
         binding.dialogAgeEt.setText(data?.age)
-        binding.employeeIdTv.text = data?.id.toString()
+        binding.employeeIdTv.text = employeeId.toString()
 
         binding.dialogBtnExit.setOnClickListener {
             dismiss()
         }
 
         binding.dialogBtnAdd.setOnClickListener {
-            if (employeeId == -1){
+            if (employeeId == null || employeeId == 0){
                 newData = EmployeeClass(data!!.id, binding.dialogNameEt.text.toString(), binding.dialogPositionEt.text.toString(), binding.dialogAgeEt.text.toString())
                 parentFragmentManager.setFragmentResult("KEY1", bundleOf("KEY2" to newData))
             }else{
@@ -73,7 +73,6 @@ class AddDialogFragment: AppCompatDialogFragment() {
             }
              // TODO: возвращаю сотрудника обраьно в активити
             dismiss()
-            Toast.makeText(context, "${employeeId}", Toast.LENGTH_LONG).show()
         }
     }
 

@@ -149,7 +149,7 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
         //val typeToken = object: TypeToken<ArrayList<EmployeeClass>>() {}.type
        // val employeers = Gson().toJson(adapter, typeToken)
 
-        var employeeIndex = generateEmployee().indexOf(employeeStatus)
+        var employeeIndex = list.indexOf(employeeStatus)
         if (employeeIndex == -1){
             adapter.addEmployee(employee!!)
             //inputFile.writeText(employeers)
