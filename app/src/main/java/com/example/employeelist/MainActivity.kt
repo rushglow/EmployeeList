@@ -89,7 +89,7 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
 
     private fun initial() {
         recyclerView = binding.employeeRecycle
-        adapter = EmployeeItemAdapter(generateEmployee(), this::onClickEmployee)
+        adapter = EmployeeItemAdapter(this::onClickEmployee)
         recyclerView.adapter = adapter
         list = generateEmployee()
         adapter.setChange(list)

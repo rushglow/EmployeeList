@@ -14,9 +14,11 @@ import com.example.employeelist.models.EmployeeClass
 
 
 //open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, private val listener: Listener): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
-open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass>, private val onClick: (EmployeeClass) -> Unit): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
+open class EmployeeItemAdapter(private val onClick: (EmployeeClass) -> Unit): RecyclerView.Adapter<EmployeeItemAdapter.EmployeeItemViewHolder>() {
 
-    class EmployeeItemViewHolder(item : View):RecyclerView.ViewHolder(item ){
+    private val items = mutableListOf<EmployeeClass>()
+
+    class EmployeeItemViewHolder(item: View): RecyclerView.ViewHolder(item) {
         val binding = EmployeeItemBinding.bind(item)
     }
 
@@ -28,77 +30,76 @@ open class EmployeeItemAdapter(private val employeeList: ArrayList<EmployeeClass
 
     override fun onBindViewHolder(holder: EmployeeItemViewHolder, position: Int) {
         val fragmentManager = (holder.itemView.context as AppCompatActivity).supportFragmentManager
-        holder.binding.tvEmployeeName.text = employeeList[position].name
-        holder.binding.tvEmployeePosition.text = employeeList[position].position
-        holder.binding.tvEmployeeAge.text = employeeList[position].age
+        holder.binding.tvEmployeeName.text = items[position].name
+        holder.binding.tvEmployeePosition.text = items[position].position
+        holder.binding.tvEmployeeAge.text = items[position].age
         holder.binding.tvEmployeePos.text = "Должность:"
         holder.binding.tvEmployeeAg.text = "Возраст:"
-        holder.itemView.setOnClickListener{
-            onClick.invoke(employeeList[position]) // TODO: дергаю этот метод, чтобы он вызвался в MainActivity
+        holder.itemView.setOnClickListener {
+            onClick.invoke(items[position]) // TODO: дергаю этот метод, чтобы он вызвался в MainActivity
 //            val employee = EmployeeClass(employeeList[position].id,employeeList[position].name,employeeList[position].position,employeeList[position].age)
 //            AddDialogFragment.newInstance(employee).show(fragmentManager, AddDialogFragment::class.java.simpleName)
         }
 
     }
 
-    override fun getItemCount(): Int {
-        return employeeList.size
-    }
+    override fun getItemCount() = items.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setChange (employee: ArrayList<EmployeeClass>) {
+    fun setChange(employee: ArrayList<EmployeeClass>) {
+        items.clear()
+        items.addAll(employee)
         notifyDataSetChanged()
     }
 
-    fun replaceEmployee(index:Int, employee: EmployeeClass){
-        employeeList.set(index, employee)
+    fun replaceEmployee(index: Int, employee: EmployeeClass) {
+        items.set(index, employee)
         notifyDataSetChanged()
     }
 
     fun addEmployee(employee: EmployeeClass) {
-        employeeList.add(employee)
+        items.add(employee)
         notifyDataSetChanged()
     }
 
-    fun sortById(employee: ArrayList<EmployeeClass>, check: Int){
-        if(check == 0){
-            employeeList.sortBy { it.id }
-        }else{
-            employeeList.sortedByDescending{ it.id }
+    fun sortById(employee: ArrayList<EmployeeClass>, check: Int) {
+        if (check == 0) {
+            items.sortBy { it.id }
+        } else {
+            items.sortedByDescending { it.id }
         }
         notifyDataSetChanged()
     }
 
-    fun sortByName(employee: ArrayList<EmployeeClass>, check: Int){
-        if(check == 0){
-            employeeList.sortBy { it.name }
-        }else{
-            employeeList.sortedByDescending{ it.name }
+    fun sortByName(employee: ArrayList<EmployeeClass>, check: Int) {
+        if (check == 0) {
+            items.sortBy { it.name }
+        } else {
+            items.sortedByDescending { it.name }
         }
         notifyDataSetChanged()
     }
 
-    fun sortByPosition(employee: ArrayList<EmployeeClass>, check: Int){
-        if(check == 0){
-            employeeList.sortBy { it.position }
-        }else{
-            employeeList.sortedByDescending{ it.position }
+    fun sortByPosition(employee: ArrayList<EmployeeClass>, check: Int) {
+        if (check == 0) {
+            items.sortBy { it.position }
+        } else {
+            items.sortedByDescending { it.position }
         }
         notifyDataSetChanged()
     }
 
-    fun sortByAge(employee: ArrayList<EmployeeClass>, check: Int){
-        if(check == 0){
-            employeeList.sortBy { it.age }
-        }else{
-            employeeList.sortedByDescending{ it.age }
+    fun sortByAge(employee: ArrayList<EmployeeClass>, check: Int) {
+        if (check == 0) {
+            items.sortBy { it.age }
+        } else {
+            items.sortedByDescending { it.age }
         }
         notifyDataSetChanged()
     }
 
 
-
-    interface  Listener{
+    interface Listener {
         fun onClick(employee: EmployeeClass)
     }
 
