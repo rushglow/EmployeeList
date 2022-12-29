@@ -62,43 +62,6 @@ open class EmployeeItemAdapter(private val onClick: (EmployeeClass) -> Unit): Re
         notifyDataSetChanged()
     }
 
-    fun sortById(employee: ArrayList<EmployeeClass>, check: Int) {
-        if (check == 0) {
-            items.sortBy { it.id }
-        } else {
-            items.sortedByDescending { it.id }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun sortByName(employee: ArrayList<EmployeeClass>, check: Int) {
-        if (check == 0) {
-            items.sortBy { it.name }
-        } else {
-            items.sortedByDescending { it.name }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun sortByPosition(employee: ArrayList<EmployeeClass>, check: Int) {
-        if (check == 0) {
-            items.sortBy { it.position }
-        } else {
-            items.sortedByDescending { it.position }
-        }
-        notifyDataSetChanged()
-    }
-
-    fun sortByAge(employee: ArrayList<EmployeeClass>, check: Int) {
-        if (check == 0) {
-            items.sortBy { it.age }
-        } else {
-            items.sortedByDescending { it.age }
-        }
-        notifyDataSetChanged()
-    }
-
-
     interface Listener {
         fun onClick(employee: EmployeeClass)
     }

@@ -30,14 +30,10 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
 
         binding.btnAddEmployee.setOnClickListener {
                 if (list.isNotEmpty()) {
-                    AddDialogFragment.newInstance(list[list.size - 1].id + 1)
+                    AddDialogFragment.newInstance(null, list[list.size - 1].id + 1).show(supportFragmentManager, AddDialogFragment::class.java.simpleName)
                 } else {
-                    AddDialogFragment.newInstance(0)
-                }
-                AddDialogFragment.newInstance(null).show(
-                    supportFragmentManager,
-                    AddDialogFragment.newInstance(null)::class.java.simpleName
-                ) // TODO: можно запустить так
+                    AddDialogFragment.newInstance(null,0).show(supportFragmentManager, AddDialogFragment::class.java.simpleName)
+                } // TODO: можно запустить так
                 employeeStatus = null
             }
 
@@ -47,39 +43,47 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
         var checkAge = 0
 
         binding.sortId.setOnClickListener{
-            if(checkId == 0){
-                adapter.sortById(list, checkId)
-                checkId = 1
+            checkId = if(checkId == 0){
+                list.sortBy { it.id }
+                adapter.setChange(list)
+                1
             }else{
-                adapter.sortById(list, checkId)
-                checkId = 0
+                list.sortByDescending { it.id }
+                adapter.setChange(list)
+                0
             }
         }
         binding.sortName.setOnClickListener{
-            if(checkName == 0){
-                adapter.sortByName(list, checkName)
-                checkName = 1
+            checkName = if(checkName == 0){
+                list.sortBy { it.name }
+                adapter.setChange(list)
+                1
             }else{
-                adapter.sortByName(list, checkName)
-                checkName = 0
+                list.sortByDescending { it.name }
+                adapter.setChange(list)
+                0
             }
         }
         binding.sortPosition.setOnClickListener{
-            if(checkPos == 0){
-                adapter.sortByPosition(list, checkPos)
-                checkPos = 1
+            checkPos = if(checkPos == 0){
+                list.sortBy { it.position }
+                adapter.setChange(list)
+                1
             }else{
-                adapter.sortByPosition(list, checkPos)
-                checkPos = 0
+                list.sortByDescending { it.position }
+                adapter.setChange(list)
+                0
             }
         }
         binding.sortAge.setOnClickListener{
-            if(checkAge == 0){
-                adapter.sortByAge(list, checkAge)
-                checkAge = 1
+            checkAge = if(checkAge == 0){
+                list.sortBy { it.age }
+                adapter.setChange(list)
+                1
             }else{
-                adapter.sortByAge(list, checkAge)
-                checkAge = 0
+                list.sortByDescending { it.age }
+                adapter.setChange(list)
+                0
             }
         }
 
@@ -139,7 +143,7 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
     }
 
     private fun onClickEmployee(employee: EmployeeClass) { //TODO: передаю этот метод в адаптер, когда из адаптера дергаю invoke, вызовется этот метод и откроет диалог
-        AddDialogFragment.newInstance(employee).show(supportFragmentManager, AddDialogFragment::class.java.simpleName)
+        AddDialogFragment.newInstance(employee, newEmployeeBoolean = false).show(supportFragmentManager, AddDialogFragment::class.java.simpleName)
         employeeStatus = employee
     }
 
@@ -151,10 +155,11 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
 
         var employeeIndex = list.indexOf(employeeStatus)
         if (employeeIndex == -1){
-            adapter.addEmployee(employee!!)
-            //inputFile.writeText(employeers)
+            list.add(employee!!)
+            adapter.setChange(list)
         }else{
-            adapter.replaceEmployee(employeeIndex, employee!!)
+            list[employeeIndex] = employee!!
+            adapter.setChange(list)
         }
     }
 

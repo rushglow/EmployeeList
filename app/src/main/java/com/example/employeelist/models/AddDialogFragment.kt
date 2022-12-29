@@ -3,15 +3,12 @@ package com.example.employeelist.models
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowId
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import com.example.employeelist.databinding.AddEmployeeDialogBinding
 
 class AddDialogFragment: AppCompatDialogFragment() {
@@ -19,16 +16,14 @@ class AddDialogFragment: AppCompatDialogFragment() {
     var data: EmployeeClass? = null
     var employeeId: Int? = null
     var newData: EmployeeClass? = null
+    var newEmployeeBoolean: Boolean? = null
 
     companion object {
-        fun newInstance(employee: EmployeeClass?) = AddDialogFragment().apply { //TODO: проблема была вот тут
+        fun newInstance(employee: EmployeeClass?, employeeId: Int = -1, newEmployeeBoolean: Boolean = true) = AddDialogFragment().apply { //TODO: проблема была вот тут
             arguments = Bundle().apply {
                 putParcelable("EMPLOYEE", employee)
-            }
-        }
-        fun newInstance(employeeId: Int) = AddDialogFragment().apply { //TODO: проблема была вот тут
-            arguments = Bundle().apply {
                 putInt("EMPLOYEE_ID", employeeId)
+                putBoolean("NEW_EMPLOYEE", newEmployeeBoolean)
             }
         }
     }
@@ -41,6 +36,7 @@ class AddDialogFragment: AppCompatDialogFragment() {
         super.onCreate(savedInstanceState)
         data = arguments?.getParcelable("EMPLOYEE")
         employeeId = arguments?.getInt("EMPLOYEE_ID")
+        newEmployeeBoolean = arguments?.getBoolean("NEW_EMPLOYEE")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -57,14 +53,21 @@ class AddDialogFragment: AppCompatDialogFragment() {
         binding.dialogNameEt.setText(data?.name)
         binding.dialogPositionEt.setText(data?.position)
         binding.dialogAgeEt.setText(data?.age)
-        binding.employeeIdTv.text = employeeId.toString()
+        binding.employeeIdTv.text = data?.id.toString()
+
+        if (newEmployeeBoolean == false){
+            binding.dialogBtnDelete.visibility = View.VISIBLE
+        }
+        binding.dialogBtnDelete.setOnClickListener{
+            DeleteDialogFragment.newInstance(data?.name).show(parentFragmentManager, DeleteDialogFragment::class.java.simpleName)
+        }
 
         binding.dialogBtnExit.setOnClickListener {
             dismiss()
         }
 
         binding.dialogBtnAdd.setOnClickListener {
-            if (employeeId == null || employeeId == 0){
+            if (employeeId == -1){
                 newData = EmployeeClass(data!!.id, binding.dialogNameEt.text.toString(), binding.dialogPositionEt.text.toString(), binding.dialogAgeEt.text.toString())
                 parentFragmentManager.setFragmentResult("KEY1", bundleOf("KEY2" to newData))
             }else{
