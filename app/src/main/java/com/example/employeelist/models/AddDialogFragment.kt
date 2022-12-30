@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.core.app.BundleCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
 import com.example.employeelist.databinding.AddEmployeeDialogBinding
@@ -53,13 +54,12 @@ class AddDialogFragment: AppCompatDialogFragment() {
         binding.dialogNameEt.setText(data?.name)
         binding.dialogPositionEt.setText(data?.position)
         binding.dialogAgeEt.setText(data?.age)
-        binding.employeeIdTv.text = data?.id.toString()
 
         if (newEmployeeBoolean == false){
             binding.dialogBtnDelete.visibility = View.VISIBLE
         }
         binding.dialogBtnDelete.setOnClickListener{
-            DeleteDialogFragment.newInstance(data?.name).show(parentFragmentManager, DeleteDialogFragment::class.java.simpleName)
+            DeleteDialogFragment.newInstance(data).show(childFragmentManager, DeleteDialogFragment :: class.java.name)
         }
 
         binding.dialogBtnExit.setOnClickListener {
@@ -77,6 +77,12 @@ class AddDialogFragment: AppCompatDialogFragment() {
              // TODO: возвращаю сотрудника обраьно в активити
             dismiss()
         }
+        childFragmentManager.setFragmentResultListener("DEL_DECISION", this, this::deleteDialogResult)
     }
 
+    fun deleteDialogResult(requestKey: String, data: Bundle){
+        val newData = data.getParcelable<EmployeeClass>("DEL_DECISION_ANSWER")
+        parentFragmentManager.setFragmentResult("DEL_DECISION", bundleOf("DEL_DECISION_ANSWER" to newData))
+        dismiss()
+    }
 }

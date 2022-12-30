@@ -7,16 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDialogFragment
-import com.example.employeelist.databinding.AddEmployeeDialogBinding
+import androidx.core.os.bundleOf
+import com.example.employeelist.EmployeeItemAdapter
 import com.example.employeelist.databinding.DeleteEmployeeConfirmDialogBinding
 
 class DeleteDialogFragment: AppCompatDialogFragment() {
     var name:String? = null
+    var data: EmployeeClass? = null
+    lateinit var adapter: EmployeeItemAdapter
 
     companion object {
-        fun newInstance(name: String?) = AddDialogFragment().apply { //TODO: проблема была вот тут
+        fun newInstance(employee: EmployeeClass?) = DeleteDialogFragment().apply { //TODO: проблема была вот тут
             arguments = Bundle().apply {
-                putString("EMPLOYEE_NAME", name)
+                putParcelable("EMPLOYEE_DEL", employee)
             }
         }
     }
@@ -26,7 +29,7 @@ class DeleteDialogFragment: AppCompatDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        name = arguments?.getString("EMPLOYEE_NAME")
+        data = arguments?.getParcelable("EMPLOYEE_DEL")
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = DeleteEmployeeConfirmDialogBinding.inflate(inflater, container, false)
@@ -36,5 +39,15 @@ class DeleteDialogFragment: AppCompatDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.deleteEmployeeConfirmTv.text = "Вы действтельно хотите удалить работника " +
+                "${data?.name}?"
+        binding.dialogBtnNo.setOnClickListener{
+            dismiss()
+        }
+        binding.dialogBtnYes.setOnClickListener{
+            var dataDel = data
+            parentFragmentManager.setFragmentResult("DEL_DECISION", bundleOf("DEL_DECISION_ANSWER" to dataDel))
+            dismiss()
+        }
     }
 }

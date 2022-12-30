@@ -2,6 +2,7 @@ package com.example.employeelist
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
 import com.example.employeelist.databinding.ActivityMainBinding
 import com.example.employeelist.models.AddDialogFragment
@@ -9,6 +10,7 @@ import com.example.employeelist.models.EmployeeClass
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
+import java.lang.reflect.Type
 
 class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
 
@@ -27,6 +29,8 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
         intent.extras?.getString("EMPLOYEE")
 
         supportFragmentManager.setFragmentResultListener("KEY1", this, this::processDialogResult) // TODO: ставлю слушетеля событий из диалога
+        supportFragmentManager.setFragmentResultListener("DEL_DECISION", this, this::deleteDialogResult) // TODO: ставлю слушетеля событий из диалога
+
 
         binding.btnAddEmployee.setOnClickListener {
                 if (list.isNotEmpty()) {
@@ -90,6 +94,14 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        val inputFile = File("${this.applicationContext.cacheDir}/employee.json")
+        val typeToken = object: TypeToken<ArrayList<EmployeeClass>>() {}.type
+        val employees = Gson().toJson(list, typeToken)
+        inputFile.writeText(employees, Charsets.UTF_8)
+    }
+
 
     private fun initial() {
         recyclerView = binding.employeeRecycle
@@ -137,7 +149,6 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
         inputFile.writeText(res, Charsets.UTF_8)
     }
 
-
     override fun onClick(employee: EmployeeClass) {
         var dialog = AddDialogFragment()
     }
@@ -161,6 +172,12 @@ class MainActivity: AppCompatActivity(), EmployeeItemAdapter.Listener {
             list[employeeIndex] = employee!!
             adapter.setChange(list)
         }
+    }
+
+    private fun deleteDialogResult(requestKey: String, data: Bundle){
+        val newData = data.getParcelable<EmployeeClass>("DEL_DECISION_ANSWER")
+        list.remove(newData)
+        adapter.setChange(list)
     }
 
 }
