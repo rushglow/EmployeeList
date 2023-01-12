@@ -3,27 +3,31 @@
       "id": "1",
       "name": "Петров Василий Павлович",
       "position": "Приколист",
-      "age": "31"
+      "age": "31",
+      "img": "https://img.freepik.com/premium-vector/female-robot-avatar-facing-half-side-with-long-shadow_100659-288.jpg?w=1060"
     },
 
     {
       "id": "2",
       "name": "Иванов Александр Егорович",
       "position": "Зам-Приколиста",
-      "age": "22"
+      "age": "22",
+      "img": "https://img.freepik.com/vector-premium/avatar-robot-femenino-mirando-mitad-larga-sombra_100659-289.jpg?w=1060"
     },
 
     {
       "id": "3",
       "name": "Романов Иван Антонович",
       "position": "Юморист",
-      "age": "24"
+      "age": "24",
+      "img": "https://img.freepik.com/premium-vector/female-robot-avatar-facing-half-to-the-side-with-a-long-shadow_100659-283.jpg?w=1060"
     },
 
     {
       "id": "4",
       "name": "Серов Игнат Васильевич",
       "position": "Пранкер",
-      "age": "42"
+      "age": "42",
+      "img": "https://img.freepik.com/vector-premium/avatar-robot-femenino-mirando-mitad-larga-sombra_100659-280.jpg?w=1060"
     }
 ]

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.employeelist.databinding.EmployeeItemBinding
 import com.example.employeelist.models.AddDialogFragment
 import com.example.employeelist.models.EmployeeClass
@@ -35,6 +36,9 @@ open class EmployeeItemAdapter(private val onClick: (EmployeeClass) -> Unit): Re
         holder.binding.tvEmployeeAge.text = items[position].age
         holder.binding.tvEmployeePos.text = "Должность:"
         holder.binding.tvEmployeeAg.text = "Возраст:"
+        Glide.with(holder.itemView.context)
+            .load(items[position].img)
+            .into(holder.binding.ivEmployeeAvatar)
         holder.itemView.setOnClickListener {
             onClick.invoke(items[position]) // TODO: дергаю этот метод, чтобы он вызвался в MainActivity
 //            val employee = EmployeeClass(employeeList[position].id,employeeList[position].name,employeeList[position].position,employeeList[position].age)

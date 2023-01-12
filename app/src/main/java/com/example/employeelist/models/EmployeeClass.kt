@@ -2,15 +2,18 @@ package com.example.employeelist.models
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.net.URI
 
 data class EmployeeClass(
     var id: Int,
     val name: String?,
     val position: String?,
     val age: String?,
+    val img: String?
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -22,6 +25,7 @@ data class EmployeeClass(
         parcel.writeString(name)
         parcel.writeString(position)
         parcel.writeString(age)
+        parcel.writeString(img)
     }
 
     override fun describeContents(): Int {
